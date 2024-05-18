@@ -1,6 +1,5 @@
 package vn.edu.iuh.fit.subjectservice.model;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,23 +20,22 @@ import java.util.Set;
 public class MonHoc {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int maMonHoc;
+    private Integer maMonHoc;
 
     private String tenMonHoc;
 
-    @OneToMany(mappedBy = "maMonHoc")
+    @OneToMany(mappedBy = "monHocSau", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Set<MonHoc> monHocTruoc = new HashSet<>();
 
-    @OneToMany(mappedBy = "maMonHoc")
-    private Set<MonHoc> danhSachMonHocPhuThuoc;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "maMonHocSau")
+    private MonHoc monHocSau;
 
     @Convert(converter = LoaiMonHocConverter.class)
     private LoaiMonHocEnum loaiMonHoc;
 
     private String mota;
 
-    @ElementCollection
-    @CollectionTable(name = "monhoc_chuyennganh", joinColumns = @JoinColumn(name = "chuyennganh_id"))
-    private Set<String> chuyenNganh;
-
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    private Set<ChuyenNganh> chuyenNganh = new HashSet<>();
 }

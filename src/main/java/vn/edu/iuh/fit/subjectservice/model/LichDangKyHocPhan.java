@@ -7,7 +7,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vn.edu.iuh.fit.subjectservice.converters.HocKyEnumConverter;
 import vn.edu.iuh.fit.subjectservice.enums.HocKyEnum;
+import vn.edu.iuh.fit.subjectservice.keys.LichDangKyHocPhanKey;
 
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -17,13 +20,13 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "lichDangKyHocPhan")
-public class LichDangKyHocPhan {
-    @Id
-    private int namHoc;
-    @Id
-    @Convert(converter = HocKyEnumConverter.class)
-    private HocKyEnum hocKy;
+public class LichDangKyHocPhan  {
 
-    @OneToMany(mappedBy = "lichDangKyHocPhan")
+    @EmbeddedId
+    private LichDangKyHocPhanKey lichDangKyHocPhanKey;
+
+    @OneToMany(mappedBy = "hocPhanKey.lichDangKyHocPhan", cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private Set<HocPhan> danhSachHocPhanChoDangKy;
+
+
 }

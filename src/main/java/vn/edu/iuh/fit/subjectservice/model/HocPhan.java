@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import vn.edu.iuh.fit.subjectservice.keys.HocPhanKey;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,23 +18,19 @@ import java.util.Set;
 @Table(name = "hocphan")
 public class HocPhan {
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "maMonHoc")
-    private MonHoc monHoc;
+    @EmbeddedId
+    private HocPhanKey hocPhanKey;
 
-    @Id
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "hocKy", referencedColumnName = "hocKy"),
-            @JoinColumn(name = "namhoc", referencedColumnName = "namHoc")
-    })
-    private LichDangKyHocPhan lichDangKyHocPhan;
+    @Column(name = "tinchi_lythuyet")
     private int soTinChiLyThuyet;
+    @Column(name = "tinchi_thuchanh")
     private int soTinChiThucHanh;
+    @Column(name = "hocphi_lythuyet")
     private Double hocPhiLyThuyet;
+    @Column(name = "hocphi_thuchanh")
     private Double hocPhiThucHanh;
 
-    @OneToMany(mappedBy = "hocPhan")
+    @OneToMany(mappedBy = "lopHocPhanChoDangKyKey.hocPhan")
     private Set<LopHocPhanChoDangKy> danhSachLopHocPhanChoDangKy = new HashSet<>();
+
 }

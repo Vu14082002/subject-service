@@ -5,24 +5,19 @@ import lombok.Getter;
 import lombok.Setter;
 import vn.edu.iuh.fit.subjectservice.converters.TrangThaiDangKyEnumConverter;
 import vn.edu.iuh.fit.subjectservice.enums.TrangThaiDangKyEnum;
+import vn.edu.iuh.fit.subjectservice.keys.SinhVienLopHocPhanKey;
 
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "sinhviendangkylop")
+@Table(name = "sinhvien_lophocphan")
 @Getter
 @Setter
 public class SinhVienLopHocPhan {
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "mssv")
-    private SinhVien maSinhVien;
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "maLopHocPhan")
-    private LopHocPhanChoDangKy maLopHocPhan;
+    @EmbeddedId
+    private SinhVienLopHocPhanKey sinhVienLopHocPhanKey;
 
     private LocalDate ngayDangKy;
 

@@ -24,8 +24,7 @@ public class ChiTietLopHocPhan {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "lop_hoc_phan_id")
-    private LopHocPhanChoDangKy lopHocPhan;
+    private LopHocPhanChoDangKy lopHocPhanDuKien;
 
     private int nhomThucHanh;
 

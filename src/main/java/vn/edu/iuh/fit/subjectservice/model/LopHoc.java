@@ -14,7 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "lophocphan")
+@Table(name = "lophoc")
 public class LopHoc {
     @Id
     private String maLopHocPhan;
@@ -23,5 +23,12 @@ public class LopHoc {
 
     @CollectionTable(name = "lophocphan_sinhvien", joinColumns = @JoinColumn(name = "lopHocPhan"))
     @Column(name = "sinhvien", nullable = false)
-    private Set<String> danhSachSinhVienDangKy = new HashSet<>();
+    private Set<String> danhSachSinhVien = new HashSet<>();
+
+    @OneToMany(mappedBy = "lopHocPhanChoDangKyKey.lopHocDuKien", cascade = {CascadeType.PERSIST,CascadeType.MERGE}, fetch = FetchType.EAGER)
+    private Set<LopHocPhanChoDangKy> danhSachLopHocPhanChoDangKy = new HashSet<>();
+    public LopHoc(String maLopHocPhan, String tenLopHocPhan) {
+        this.maLopHocPhan = maLopHocPhan;
+        this.tenLopHocPhan = tenLopHocPhan;
+    }
 }
