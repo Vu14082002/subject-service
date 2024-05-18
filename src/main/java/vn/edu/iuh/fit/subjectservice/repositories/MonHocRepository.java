@@ -1,4 +1,8 @@
 package vn.edu.iuh.fit.subjectservice.repositories;
 
-public interface MonHocRepository extends org.springframework.data.jpa.repository.JpaRepository<vn.edu.iuh.fit.subjectservice.model.MonHoc, java.lang.Integer> ,org.springframework.data.jpa.repository.JpaSpecificationExecutor<vn.edu.iuh.fit.subjectservice.model.MonHoc> {
-  }
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import vn.edu.iuh.fit.subjectservice.model.MonHoc;
+
+public interface MonHocRepository extends JpaRepository<MonHoc, Integer>, JpaSpecificationExecutor<MonHoc> {
+}

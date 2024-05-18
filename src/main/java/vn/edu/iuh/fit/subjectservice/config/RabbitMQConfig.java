@@ -1,6 +1,5 @@
 package vn.edu.iuh.fit.subjectservice.config;
 
-
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -12,29 +11,73 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-    //    main queue
-    @Value("${spring.rabbitmq.exchange.subject}")
-    private String exchange;
-    @Value("${spring.rabbitmq.queue.subject}")
-    private String queueName;
-    @Value("${spring.rabbitmq.routingKey.subject}")
-    private String routingKey;
+    // Queue for incoming messages from other services
+    @Value("${student.exchange}")
+    private String studentExchange;
+    @Value("${student.subject.queue}")
+    private String studentQueue;
+    @Value("${student.subject.queue.key}")
+    private String studentRoutingKey;
 
+    // Queue for lecturer messages
+    @Value("${lecturer.exchange}")
+    private String lecturerExchange;
+    @Value("${lecturer.subject.queue}")
+    private String lecturerQueue;
+    @Value("${lecturer.subject.queue.key}")
+    private String lecturerRoutingKey;
+
+    // Queue for this service
+    @Value("${subject.exchange}")
+    private String serviceExchange;
+    @Value("${subject.queue}")
+    private String serviceQueue;
+    @Value("${subject.key}")
+    private String serviceRoutingKey;
 
     @Bean
-    public Queue queue() {
-        return new Queue(queueName, false);
+    public DirectExchange studentExchange() {
+        return new DirectExchange(studentExchange);
     }
 
-
     @Bean
-    public DirectExchange directExchange() {
-        return new DirectExchange(exchange);
+    public Queue studentQueue() {
+        return new Queue(studentQueue, true);
     }
 
     @Bean
-    public Binding binding() {
-        return BindingBuilder.bind(queue()).to(directExchange()).with(routingKey);
+    public Binding studentBinding() {
+        return BindingBuilder.bind(studentQueue()).to(studentExchange()).with(studentRoutingKey);
+    }
+
+    @Bean
+    public DirectExchange lecturerExchange() {
+        return new DirectExchange(lecturerExchange);
+    }
+
+    @Bean
+    public Queue lecturerQueue() {
+        return new Queue(lecturerQueue, true);
+    }
+
+    @Bean
+    public Binding lecturerBinding() {
+        return BindingBuilder.bind(lecturerQueue()).to(lecturerExchange()).with(lecturerRoutingKey);
+    }
+
+    @Bean
+    public DirectExchange serviceExchange() {
+        return new DirectExchange(serviceExchange);
+    }
+
+    @Bean
+    public Queue serviceQueue() {
+        return new Queue(serviceQueue, true);
+    }
+
+    @Bean
+    public Binding serviceBinding() {
+        return BindingBuilder.bind(serviceQueue()).to(serviceExchange()).with(serviceRoutingKey);
     }
 
     @Bean
@@ -49,4 +92,3 @@ public class RabbitMQConfig {
         return rabbitTemplate;
     }
 }
-

@@ -1,15 +1,13 @@
 package vn.edu.iuh.fit.subjectservice.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -23,9 +21,18 @@ public class SinhVien {
     @Id
     private Integer mssv;
     private String hoTen;
-    private String lopDanhNghia;
-    private String chuyenNganh;
+    @ElementCollection
+    @CollectionTable(name = "SinhVien_Lop", joinColumns = @JoinColumn(name = "mssv"))
+    @Column(name = "lopDanhNghia")
+    private Set<String> lopDanhNghia= new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable(name = "SinhVien_ChuyenNganh", joinColumns = @JoinColumn(name = "mssv"))
+    @Column(name = "chuyenNganh")
+    private Set<String> chuyenNganh = new HashSet<>();
 
     @ManyToMany
     private Set<HocPhan> danhSachMonHocDangKy;
+
+
 }

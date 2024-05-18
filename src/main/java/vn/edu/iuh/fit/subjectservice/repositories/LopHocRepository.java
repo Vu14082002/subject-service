@@ -1,4 +1,8 @@
 package vn.edu.iuh.fit.subjectservice.repositories;
 
-public interface LopHocRepository extends org.springframework.data.jpa.repository.JpaRepository<vn.edu.iuh.fit.subjectservice.model.LopHoc, java.lang.String> ,org.springframework.data.jpa.repository.JpaSpecificationExecutor<vn.edu.iuh.fit.subjectservice.model.LopHoc> {
-  }
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import vn.edu.iuh.fit.subjectservice.model.LopHoc;
+
+public interface LopHocRepository extends JpaRepository<LopHoc, String>, JpaSpecificationExecutor<LopHoc> {
+}

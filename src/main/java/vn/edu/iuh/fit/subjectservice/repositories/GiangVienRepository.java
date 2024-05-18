@@ -1,4 +1,8 @@
 package vn.edu.iuh.fit.subjectservice.repositories;
 
-public interface GiangVienRepository extends org.springframework.data.jpa.repository.JpaRepository<vn.edu.iuh.fit.subjectservice.model.GiangVien, java.lang.String> ,org.springframework.data.jpa.repository.JpaSpecificationExecutor<vn.edu.iuh.fit.subjectservice.model.GiangVien> {
-  }
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import vn.edu.iuh.fit.subjectservice.model.GiangVien;
+
+public interface GiangVienRepository extends JpaRepository<GiangVien, String>, JpaSpecificationExecutor<GiangVien> {
+}

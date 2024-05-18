@@ -1,4 +1,9 @@
 package vn.edu.iuh.fit.subjectservice.repositories;
 
-public interface LichHocRepository extends org.springframework.data.jpa.repository.JpaRepository<vn.edu.iuh.fit.subjectservice.model.LichHoc, vn.edu.iuh.fit.subjectservice.keys.LichHocKey> ,org.springframework.data.jpa.repository.JpaSpecificationExecutor<vn.edu.iuh.fit.subjectservice.model.LichHoc> {
-  }
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import vn.edu.iuh.fit.subjectservice.keys.LichHocKey;
+import vn.edu.iuh.fit.subjectservice.model.LichHoc;
+
+public interface LichHocRepository extends JpaRepository<LichHoc, LichHocKey>, JpaSpecificationExecutor<LichHoc> {
+}
